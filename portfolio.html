@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Théo Barty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5C1A;
+    --orange-light: #FF8C55;
+    --orange-glow: rgba(255, 92, 26, 0.15);
+    --black: #080808;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #222222;
+    --white: #F5F0EA;
+    --muted: #888880;
+    --font-display: 'Permanent Marker', cursive;
+    --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', sans-serif;
+    --nav-h: 72px;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3vw;
+    backdrop-filter: blur(20px);
+    background: rgba(8,8,8,0.92);
+    border-bottom: 1px solid rgba(255,92,26,0.1);
+  }
+  .nav-left { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo img { height: 34px; width: auto; filter: invert(1); transition: filter var(--transition); }
+  .nav-logo:hover img { filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg) brightness(1.1); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(245,240,234,0.7); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em;
+    transition: color var(--transition); position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--orange);
+    transition: width var(--transition);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--orange); }
+  .nav-links a.active::after { width: 100%; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-accomp {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--orange); color: var(--black);
+    text-decoration: none; font-size: 0.875rem; font-weight: 700;
+    padding: 0.55rem 1.25rem; border-radius: 100px;
+    transition: background var(--transition), transform var(--transition);
+    white-space: nowrap;
+  }
+  .nav-accomp:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .nav-divider { width: 1px; height: 24px; background: rgba(245,240,234,0.15); }
+  .nav-social {
+    width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(245,240,234,0.15); border-radius: 10px;
+    background: rgba(245,240,234,0.04); text-decoration: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .nav-social:hover { border-color: var(--orange); background: rgba(255,92,26,0.1); }
+  .nav-social svg { width: 16px; height: 16px; stroke: rgba(245,240,234,0.7); fill: none; stroke-width: 1.75; transition: stroke var(--transition); }
+  .nav-social:hover svg { stroke: var(--orange); }
+
+  /* HERO PORTFOLIO */
+  .portfolio-hero {
+    padding: calc(var(--nav-h) + 5rem) 5vw 4rem;
+    text-align: center;
+  }
+  .portfolio-hero-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 1.25rem;
+  }
+  .portfolio-hero-label::before {
+    content: ''; display: block; width: 28px; height: 2px;
+    background: var(--orange); border-radius: 2px;
+  }
+  .portfolio-hero-label::after {
+    content: ''; display: block; width: 28px; height: 2px;
+    background: var(--orange); border-radius: 2px;
+  }
+  .portfolio-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .portfolio-hero h1 em {
+    font-style: normal; font-family: var(--font-display); color: var(--orange);
+  }
+  .portfolio-hero p {
+    font-size: 1.0625rem; color: var(--muted);
+    max-width: 44ch; margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* FILTERS */
+  .portfolio-filters {
+    display: flex; gap: 0.625rem; flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 5vw 3rem;
+  }
+  .filter-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.03em;
+    border: 1.5px solid rgba(245,240,234,0.15);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+  }
+  .filter-btn::before {
+    content: '';
+    width: 14px; height: 14px;
+    border: 1.5px solid rgba(245,240,234,0.3);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all var(--transition);
+  }
+  .filter-btn.active {
+    border-color: var(--orange);
+    color: var(--white);
+    background: rgba(255,92,26,0.1);
+  }
+  .filter-btn.active::before {
+    background: var(--orange);
+    border-color: var(--orange);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 7l3 3 6-6' stroke='%23000' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .filter-btn-reset {
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600;
+    border: 1.5px solid rgba(245,240,234,0.15);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all var(--transition);
+    display: none;
+  }
+  .filter-btn-reset.visible {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .filter-btn-reset:hover { border-color: var(--orange); color: var(--orange); }
+  .filter-btn:hover:not(.active) { border-color: rgba(245,240,234,0.35); color: var(--white); }
+
+  /* GRID */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding: 0 5vw 8rem;
+    align-items: start;
+  }
+
+  .video-card {
+    border-radius: var(--radius-lg); overflow: hidden;
+    background: var(--dark2);
+    border: 1px solid rgba(245,240,234,0.07);
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  }
+  .video-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,92,26,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .video-thumb {
+    position: relative; aspect-ratio: 16/9;
+    overflow: hidden; background: var(--dark3);
+  }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .video-card:hover .video-thumb img { transform: scale(1.05); }
+  .video-thumb-placeholder {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .video-play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    background: rgba(8,8,8,0.7); backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(245,240,234,0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  }
+  .video-card:hover .video-play-btn {
+    background: var(--orange); border-color: var(--orange);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .video-play-btn svg { width: 18px; height: 18px; fill: var(--white); transform: translateX(2px); }
+  .video-info { padding: 1rem 1.1rem 1.1rem; }
+  .video-title-row {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem;
+    margin-bottom: 0.625rem;
+  }
+  .video-title { font-size: 0.9375rem; font-weight: 600; color: var(--white); line-height: 1.35; }
+  .video-ext-link {
+    flex-shrink: 0; width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(245,240,234,0.06); border: 1px solid rgba(245,240,234,0.1);
+    border-radius: 8px; text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .video-ext-link:hover { background: var(--orange-glow); border-color: var(--orange); }
+  .video-ext-link svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; stroke-width: 2; }
+  .video-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; align-items: center; }
+  .video-tag {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+    border: 1px solid rgba(245,240,234,0.12);
+    color: var(--muted); background: rgba(245,240,234,0.04);
+  }
+  .video-tag.tag-platform { }
+  .video-tag.tag-orange {
+    border-color: rgba(255,92,26,0.3); color: var(--orange-light); background: rgba(255,92,26,0.06);
+  }
+  .video-card.hidden { display: none; }
+
+  /* MODAL */
+  .video-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000;
+    display: flex; align-items: center; justify-content: center; padding: 2rem;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+  }
+  .video-modal.open { opacity: 1; pointer-events: all; }
+  .video-modal-inner {
+    position: relative; width: 100%; max-width: 960px; aspect-ratio: 16/9;
+    border-radius: var(--radius-lg); overflow: hidden; background: var(--black);
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  }
+  .video-modal-inner iframe { width: 100%; height: 100%; border: none; }
+  .video-modal-close {
+    position: absolute; top: -3rem; right: 0;
+    width: 40px; height: 40px; background: rgba(245,240,234,0.1);
+    border: 1px solid rgba(245,240,234,0.2); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition);
+  }
+  .video-modal-close:hover { background: var(--orange); border-color: var(--orange); }
+  .video-modal-close svg { width: 18px; height: 18px; stroke: var(--white); fill: none; stroke-width: 2; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 5vw; border-top: 1px solid rgba(245,240,234,0.07);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo { display: flex; align-items: center; text-decoration: none; }
+  .footer-logo img { height: 40px; width: auto; filter: invert(1); }
+  .footer-copy { font-size: 0.8125rem; color: var(--muted); }
+  .footer-socials { display: flex; gap: 0.75rem; }
+  .social-link {
+    width: 40px; height: 40px; background: var(--dark);
+    border: 1px solid rgba(245,240,234,0.1); border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center; text-decoration: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .social-link:hover { background: var(--orange-glow); border-color: rgba(255,92,26,0.4); }
+  .social-link svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 1.75; transition: stroke var(--transition); }
+  .social-link:hover svg { stroke: var(--orange); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  @media (max-width: 900px) {
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .portfolio-grid { grid-template-columns: 1fr; padding: 0 5vw 4rem; }
+  }
+
+  /* Hamburger mobile */
+  .nav-hamburger {
+    display: none;
+    width: 38px; height: 38px;
+    background: rgba(245,240,234,0.04);
+    border: 1px solid rgba(245,240,234,0.15);
+    border-radius: 10px;
+    align-items: center; justify-content: center;
+    cursor: pointer; flex-direction: column; gap: 5px;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .nav-hamburger:hover { border-color: var(--orange); background: rgba(255,92,26,0.1); }
+  .nav-hamburger span {
+    display: block; width: 18px; height: 1.5px;
+    background: rgba(245,240,234,0.7); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-mobile-menu {
+    display: none;
+    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,92,26,0.1);
+    padding: 1.5rem 5vw 2rem;
+    flex-direction: column; gap: 0.25rem;
+    z-index: 99;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu a {
+    color: rgba(245,240,234,0.7); text-decoration: none;
+    font-size: 1.1rem; font-weight: 500;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(245,240,234,0.06);
+    transition: color var(--transition);
+  }
+  .nav-mobile-menu a:hover, .nav-mobile-menu a.active { color: var(--orange); }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  @media (max-width: 900px) {
+    .nav-hamburger { display: flex; }
+    .nav-links { display: none !important; }
+  }
+
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo"><img src="data:image/png;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgv+zBIQEAAACAoP+vXWEDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYJcAABy+vdZJeV7AAAAAASUVORK5CYII=" alt="TB Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="index.html#formation">Accompagnement</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <a href="index.html#contact" class="nav-accomp">
+      <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Réserver un appel
+    </a>
+    <div class="nav-divider"></div>
+    <a href="https://www.instagram.com/theo.barty/" target="_blank" rel="noopener" class="nav-social" title="Instagram @theo.barty">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a>
+  <a href="portfolio.html" class="active">Portfolio</a>
+  <a href="accompagnement.html">Accompagnement</a>
+  <a href="https://calendly.com/theobarty/appel-decouverte" target="_blank" style="color:var(--orange);font-weight:700;">Réserver un appel →</a>
+</div>
+
+<!-- HERO -->
+<div class="portfolio-hero">
+  <div class="portfolio-hero-label reveal">Portfolio</div>
+  <h1 class="reveal reveal-delay-1">Toutes mes <em>créations</em></h1>
+  <p class="reveal reveal-delay-2">Montage vidéo, motion design, storytelling — une sélection complète de mes réalisations.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="portfolio-filters reveal">
+  <button class="filter-btn" data-filter="storytelling">Storytelling</button>
+  <button class="filter-btn" data-filter="vsl">VSL</button>
+  <button class="filter-btn" data-filter="business">Business</button>
+  <button class="filter-btn" data-filter="pub">Publicité</button>
+  <button class="filter-btn" data-filter="divertissement">Divertissement</button>
+  <button class="filter-btn" data-filter="vlog">Vlog</button>
+  <button class="filter-btn" data-filter="sport">Sport</button>
+  <button class="filter-btn" data-filter="interview">Interview</button>
+  <button class="filter-btn" data-filter="motion">Motion design</button>
+  <button class="filter-btn" data-filter="youtube">Youtube</button>
+  <button class="filter-btn" data-filter="instagram">Instagram/Tiktok</button>
+  <button class="filter-btn-reset" id="resetFilters" onclick="resetFilters()">
+    <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    Effacer les filtres
+  </button>
+</div>
+
+<!-- GRID -->
+<div class="portfolio-grid">
+
+  <div class="video-card reveal" data-tags="storytelling,montage,motion,youtube" onclick="openVideo('o5vnohpDBuE')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/o5vnohpDBuE/maxresdefault.jpg" alt="Comment repartir de zéro" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Comment repartir de zéro</strong> · Mathias Mtvn</div>
+        <a href="https://www.youtube.com/watch?v=o5vnohpDBuE" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Storytelling</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" data-tags="montage,storytelling,youtube" onclick="openVideo('fG7H-v59XyM')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/fG7H-v59XyM/maxresdefault.jpg" alt="SOUKOUNA" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>SOUKOUNA : La vraie vie d'un combattant pro de MMA</strong></div>
+        <a href="https://youtu.be/fG7H-v59XyM" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Documentaire</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-2" data-tags="divertissement,montage,motion,youtube" onclick="openVideo('-Of1-qC0B7g')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/-Of1-qC0B7g/maxresdefault.jpg" alt="Plats extrêmes" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>On goûte des PLATS EXTRÊMES</strong> · Batzair</div>
+        <a href="https://www.youtube.com/watch?v=-Of1-qC0B7g" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="vsl,montage,motion,youtube" onclick="openVideo('85V9zE-w0qk')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/85V9zE-w0qk/maxresdefault.jpg?1774712800" alt="Mon premier livre sur la Bourse" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Mon premier livre sur la Bourse</strong></div>
+        <a href="https://youtu.be/85V9zE-w0qk" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">VSL</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" data-tags="pub,motion,instagram" onclick="openVideo('37DpxXBkBSI')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/37DpxXBkBSI/maxresdefault.jpg?1774712800" alt="Electryq" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Electryq</strong></div>
+        <a href="https://youtube.com/shorts/37DpxXBkBSI" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-2" data-tags="pub,motion,montage,instagram" onclick="openVideo('8i6QOwh6dFs')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/8i6QOwh6dFs/maxresdefault.jpg?1774712800" alt="Masto" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Masto</strong></div>
+        <a href="https://youtube.com/shorts/8i6QOwh6dFs" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="vsl,storytelling,motion,montage,youtube" onclick="openVideo('AtTTj72MncM')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/AtTTj72MncM/maxresdefault.jpg" alt="CAST UP" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>CAST UP</strong></div>
+        <a href="https://youtu.be/AtTTj72MncM" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">VSL</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Youtube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" data-tags="interview,storytelling,sport,youtube" onclick="openVideo('0n0W3ZHaO5s')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/0n0W3ZHaO5s/maxresdefault.jpg" alt="LES FRÈRES BOUGHANEM M'ONT OUVERT LES YEUX" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LES FRÈRES BOUGHANEM M'ONT OUVERT LES YEUX ..</strong></div>
+        <a href="https://www.youtube.com/watch?v=0n0W3ZHaO5s" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Interview</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag">Sport</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-2" data-tags="divertissement,storytelling,youtube" onclick="openVideo('p8mMmQsWl5E')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/p8mMmQsWl5E/maxresdefault.jpg" alt="Je me suis fait agresser..." loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Je me suis fait agresser...</strong></div>
+        <a href="https://www.youtube.com/watch?v=p8mMmQsWl5E" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,storytelling,youtube" onclick="openVideo('agUzKdovF4Y')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/agUzKdovF4Y/maxresdefault.jpg" alt="J'ai adopté un bébé ESCARGOT GÉANT..." loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>J'ai adopté un bébé ESCARGOT GÉANT...</strong></div>
+        <a href="https://youtu.be/agUzKdovF4Y" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" data-tags="divertissement,sport,youtube" onclick="openVideo('6S0iwCPaYAU')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/6S0iwCPaYAU/maxresdefault.jpg" alt="SURVIVRE au STREET WORKOUT le plus DANGEREUX .." loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>SURVIVRE au STREET WORKOUT le plus DANGEREUX ..</strong></div>
+        <a href="https://www.youtube.com/watch?v=6S0iwCPaYAU" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Sport</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-2" data-tags="divertissement,sport,youtube" onclick="openVideo('CNyInBoh31E')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/CNyInBoh31E/maxresdefault.jpg" alt="LE MEILLEUR EXERCICE pour CHAQUE MUSCLE" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LE MEILLEUR EXERCICE pour CHAQUE MUSCLE ! ft @NassimSahili</strong></div>
+        <a href="https://www.youtube.com/watch?v=CNyInBoh31E" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Sport</span>
+        <span class="video-tag">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,sport,youtube" onclick="openVideo('GdxAPQ8yavQ')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/GdxAPQ8yavQ/maxresdefault.jpg" alt="LES EXOS DE MUSCU LES PLUS DANGEREUX" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LES EXOS DE MUSCU LES PLUS DANGEREUX ! ft @NassimSahili</strong></div>
+        <a href="https://www.youtube.com/watch?v=GdxAPQ8yavQ" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Sport</span>
+        <span class="video-tag">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" data-tags="sport,documentaire,youtube" onclick="openVideo('AQ1q919X_-8')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/AQ1q919X_-8/maxresdefault.jpg" alt="LES DANGERS du BODYBUILDING" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LES DANGERS du BODYBUILDING .. (dopage, sacrifice, diète) ft @zramdani_</strong></div>
+        <a href="https://www.youtube.com/watch?v=AQ1q919X_-8" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Sport</span>
+        <span class="video-tag">Documentaire</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="storytelling,motion,youtube" onclick="openVideo('2qUpVXo51Fs')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/2qUpVXo51Fs/maxresdefault.jpg" alt="Ce qu'il se passe si tu ne dors pas assez" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Ce qu'il se passe si tu ne dors pas assez</strong></div>
+        <a href="https://youtu.be/2qUpVXo51Fs" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Storytelling</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="pub,storytelling,motion,instagram" onclick="openVideo('TEJa4bH4wT4')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/TEJa4bH4wT4/maxresdefault.jpg?1774712800" alt="Frais bancaire" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Frais bancaire</strong></div>
+        <a href="https://youtube.com/shorts/TEJa4bH4wT4" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="vsl,business,storytelling,motion,youtube" onclick="openVideo('0ZTiEzP0KvY')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/0ZTiEzP0KvY/maxresdefault.jpg" alt="La méthode 4D by SEQOOIA" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>La méthode 4D by SEQOOIA</strong></div>
+        <a href="https://youtu.be/0ZTiEzP0KvY" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">VSL</span>
+        <span class="video-tag">Business</span>
+        <span class="video-tag">Storytelling</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="pub,motion,instagram" onclick="openVideo('x-LBh_RhkYs')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/x-LBh_RhkYs/maxresdefault.jpg?1774714475" alt="ADOBE ACROBAT by Masto" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>ADOBE ACROBAT by Masto</strong></div>
+        <a href="https://youtu.be/x-LBh_RhkYs" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="motion,instagram" onclick="openVideo('MF__2WX5QO4')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/MF__2WX5QO4/maxresdefault.jpg?1774714475" alt="LE SON" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LE SON</strong></div>
+        <a href="https://youtube.com/shorts/MF__2WX5QO4" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,documentaire,youtube" onclick="openVideo('8ZCSfg0YVKs')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/8ZCSfg0YVKs/maxresdefault.jpg" alt="Je surprends ma famille avec une Porsche 911 et une Lamborghini Urus" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Je surprends ma famille avec une Porsche 911 et une Lamborghini Urus</strong></div>
+        <a href="https://www.youtube.com/watch?v=8ZCSfg0YVKs" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Documentaire</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="vlog,divertissement,youtube" onclick="openVideo('3vEm2XINwHw')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/3vEm2XINwHw/maxresdefault.jpg" alt="VLOG GUADELOUPE" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>VLOG GUADELOUPE</strong></div>
+        <a href="https://youtu.be/3vEm2XINwHw" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Vlog</span>
+        <span class="video-tag">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('zmU4JaxkjZc')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/zmU4JaxkjZc/maxresdefault.jpg" alt="FULL FACE avec du maquillage MINIATURE" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>FULL FACE avec du maquillage MINIATURE</strong></div>
+        <a href="https://www.youtube.com/watch?v=zmU4JaxkjZc" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('v8kkmlhAHP8')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/v8kkmlhAHP8/maxresdefault.jpg" alt="Cette pièce perd UN DEGRÉ CHAQUE MINUTE" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Cette pièce perd UN DEGRÉ CHAQUE MINUTE</strong></div>
+        <a href="https://youtu.be/v8kkmlhAHP8" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('d0CcuxkqCuk')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/d0CcuxkqCuk/maxresdefault.jpg" alt="Peut-on survivre avec des outils de survie 1 étoile ?" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Peut-on survivre avec des outils de survie 1 étoile ?</strong></div>
+        <a href="https://youtu.be/d0CcuxkqCuk" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('DsrlQRSXMiE')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/DsrlQRSXMiE/maxresdefault.jpg" alt="JE TESTE 10 OBJETS DANGEREUX (comment c'est légal ?!)" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>JE TESTE 10 OBJETS DANGEREUX (comment c'est légal ?!)</strong></div>
+        <a href="https://www.youtube.com/watch?v=DsrlQRSXMiE" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('WRdgdCqU1Lg')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/WRdgdCqU1Lg/maxresdefault.jpg" alt="J'AFFRONTE 10 NIVEAUX DE DOULEUR (et je finis aux urgences)" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>J'AFFRONTE 10 NIVEAUX DE DOULEUR (et je finis aux urgences)</strong></div>
+        <a href="https://youtu.be/WRdgdCqU1Lg" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="storytelling,youtube" onclick="openVideo('G23tw4UGPis')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/G23tw4UGPis/maxresdefault.jpg" alt="Comment arrêter de stresser (pour de bon)" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Comment arrêter de stresser (pour de bon)</strong></div>
+        <a href="https://www.youtube.com/watch?v=G23tw4UGPis" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Storytelling</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="vlog,divertissement,youtube" onclick="openVideo('Q23Za2r30Dg')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/Q23Za2r30Dg/maxresdefault.jpg" alt="Où manger à CHAMONIX ? (fondue, burger…)" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Où manger à CHAMONIX ? (fondue, burger…) 🫕🍔</strong></div>
+        <a href="https://www.youtube.com/watch?v=Q23Za2r30Dg" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Vlog</span>
+        <span class="video-tag">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="interview,youtube" onclick="openVideo('vptUt4Db310')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/vptUt4Db310/maxresdefault.jpg" alt="Comment arrêter de scroller (pour de bon)" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Comment arrêter de scroller (pour de bon)</strong></div>
+        <a href="https://www.youtube.com/watch?v=vptUt4Db310" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Interview</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,motion,youtube" onclick="openVideo('BxUN-XhxD9M')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/BxUN-XhxD9M/maxresdefault.jpg" alt="LE CLASH DES JEUX-VIDEO" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>LE CLASH DES JEUX-VIDEO</strong></div>
+        <a href="https://www.youtube.com/watch?v=BxUN-XhxD9M" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('XR0Yz_dOKMI')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/XR0Yz_dOKMI/maxresdefault.jpg" alt="À QUOI SERVAIENT CES ANCIENS OBJETS ? 😱" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>À QUOI SERVAIENT CES ANCIENS OBJETS ? 😱</strong></div>
+        <a href="https://www.youtube.com/watch?v=XR0Yz_dOKMI" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="divertissement,youtube" onclick="openVideo('Kdkfablzvto')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/Kdkfablzvto/maxresdefault.jpg" alt="Quel objet est une CAMÉRA ESPION ?" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>Quel objet est une CAMÉRA ESPION ?</strong></div>
+        <a href="https://youtu.be/Kdkfablzvto" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Divertissement</span>
+        <span class="video-tag tag-platform">YouTube</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="motion,instagram" onclick="openVideo('dFt5R9knVfc')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/dFt5R9knVfc/maxresdefault.jpg" alt="L'ARBRE" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>L'ARBRE</strong></div>
+        <a href="https://youtube.com/shorts/dFt5R9knVfc" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="pub,motion,instagram" onclick="openVideo('mvUVBqGZM4w')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/mvUVBqGZM4w/maxresdefault.jpg" alt="PEA" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>PEA</strong></div>
+        <a href="https://youtube.com/shorts/mvUVBqGZM4w" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card reveal" data-tags="pub,motion,instagram" onclick="openVideo('_NSu4Ks3Y5k')">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/_NSu4Ks3Y5k/maxresdefault.jpg" alt="SCAMMEUR" loading="lazy">
+      <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M5 3l14 9L5 21V3z"/></svg></div>
+    </div>
+    <div class="video-info">
+      <div class="video-title-row">
+        <div class="video-title"><strong>SCAMMEUR</strong></div>
+        <a href="https://youtube.com/shorts/_NSu4Ks3Y5k" target="_blank" class="video-ext-link" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="video-tags">
+        <span class="video-tag tag-orange">Publicité</span>
+        <span class="video-tag">Motion design</span>
+        <span class="video-tag tag-platform">Instagram/Tiktok</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder — toujours en dernier -->
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <div class="video-card" style="cursor:default; border:1px dashed rgba(245,240,234,0.25); background:rgba(245,240,234,0.01); width:100%;">
+      <div class="video-thumb" style="background:rgba(245,240,234,0.02); display:flex; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 24 24" style="width:36px;height:36px;stroke:rgba(245,240,234,0.18);fill:none;stroke-width:1.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+      </div>
+      <div class="video-info">
+        <div class="video-title-row">
+          <div class="video-title" style="color:rgba(245,240,234,0.15);">Votre prochaine vidéo</div>
+        </div>
+        <div class="video-tags">
+          <span class="video-tag" style="border-color:rgba(245,240,234,0.1); color:rgba(245,240,234,0.15);">Tag</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem; margin-top:0.75rem;">
+      <svg viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleY(-1);">
+        <path d="M10 6 C14 6 28 10 28 28" stroke="rgba(245,240,234,0.9)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M22 25 L28 30 L34 24" stroke="rgba(245,240,234,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-family:'Permanent Marker',cursive; font-size:1rem; color:rgba(245,240,234,0.95);">Il ne manque plus que la vôtre 😉</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div style="text-align:center; padding: 1rem 5vw 4rem; background:var(--black);">
+  <a href="https://calendly.com/theobarty/appel-decouverte" target="_blank" rel="noopener"
+     style="display:inline-flex; align-items:center; gap:0.6rem; padding:0.9rem 2rem; border-radius:100px; background:var(--orange); color:#080808; font-size:0.9375rem; font-weight:700; text-decoration:none; box-shadow:0 0 40px rgba(255,92,26,0.35);"
+     onmouseover="this.style.background='#FF8C55';this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='#FF5C1A';this.style.transform='translateY(0)'">
+    <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Réserver un appel
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAPoCAYAAABNo9TkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAJOtJREFUeNrs3Ytx1FjagOEzWwTQG4FFBLARWBPBmgimiWAgAiACMxFgIsATAXIEtCNYOYLpiWBWZ1q9XJaLDX30Hamfp0rFv7tVqvo/X1qvj3SUEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQG1+MoJbWw3HE2MAAAp5PrPzUqfulv8dINBnrR2Ot8YAAMzousz1C5/aDsfmg/989Zn/fjP+Z2Bi94zg1h4aAQBQSOf6hYnku0LbD/5ze4uYz/9ef/KfN0YJAj3SAyMAAArpC533xGg5UMyffeH7th9j/Wb8ty/4/QwCnf/xF2gAoJQb1y/MUDMe7Wf+t+6TcO+MC77NM+i395cRAACF/FwoYFy/UJPNeFyLdvg8K+i30xoBAFA4XA7N6jm1efiZ78t9qF+l97fIg0DHBxwAEGKbyuyY3RgtM4r2/euM+w+CvRPsCHQ+xwZxAEAppXbDtsDAHDXDsR6PD4P99/Ffr39j0f5hBD7gAIBQV4XOe2q0LCjY3wzHH8PxNu1W212fs0g2ibsdG6wAAKU8Ho6LAufNMbMyXhasH47L9H51HWbPCvq3tUYAABSOjENbiXOOQJN2q+l5VT3/QepV+vz72kGgL4jbZwCAkjrXL/DD8h+k1un9rfCv/Bwg0JfJBnEAQCmlNohrjRaxnt4Nx3+G43nyVgME+mL4yxsAUEpf6LwWGGAnh/mzMdTfpve7w4NAF+gAAB+5LhglwMfatLv1Pd8Cf+7nBIEuzgEAPtS5hoHJ5Vvg8+Zy+1V1G8sh0AU6AECRW9xbY4U7/by8GWN9nbz9AIFeNc9vAQBzC3QLDHB3Tdrd/r7fVE6oI9Ar5AMOACilK3TeE6OF75bDfL+p3KvkOXUEelVaIwAACin1ijULDHCYUF8LdQR6PXy4AQAl3RQ6b2u0cFD7UD9Pbn1HoAt0AGCRSqygu36BcvY7vz8X6gj06dkgDgAoqStwzsZYoagPn1FfGwcCfTr+Ag0AlNK7foHZh/p+1/fWOBDo5flBAwDmFuinRguTaobjbdq9S70xDgR6Gf76DACUdOUaBhblbDjepd3z6SDQfbgBADNSYoO4VbJxFUT68Pn01jgQ6IdjgzgAoKS+wDktMEAdmrS77d1r2RDoPuAAgBkosYLeGitUJb+W7Z2fTQS6QAcA6tUVOq87AKE+TbKajkD/4R8iPzwAQCl9wWsYoE5PxlC3EIhAvyM/NABASTeuYeBoO+PdGOsg0H24AQAV6AqcszVWmI18u3teTXfXLgL9Fk6NAAAoqMQGcRYYYF7atFtN97OLQPcBBwAE2Y7HoZ0YLcxOM0b62igQ6F/+IXGrCQBQyqbQeS0wwHy9Gg8Q6D7cAIAJXRU6b2u0MGvrtFtNt1go0BHoAMBEetcvwFd+lj2XLtD5gA3iAIC5BXpjrLAY+ec57/DeGoVAx1+rAICyOtcvwDesxkhfG4VAP2ZN8swHAFBOqQ3i3AEIy5Q3jntiDAL9WPnrMwBQUu8aBrij82SHd4Eu0AEADu66wDlXyR2AsHRrkS7Qj9EDIwAACuoKnNMCA4h0BPoi+YADAErqC5yzNVYQ6Qj0pcm3hjXGAADMLNDdAQgiHYG+OFbPAYCSukLnbYwWRDoCfWlaIwAACir1ijWLDCDSEeiL4/YwAKCkmwLnbI0Vjj7SvSddoC+Svz4DACWVWEF3/QKcj6GOQF8MG8QBAKV1Bc55YqxA2t3qfmYMAn0p/PUZACipdw0DTBDpficI9EVojQAAmGGgu4YB9vJdwW/HfxHos2aDOACgpKsC57RSBnwp0hHos+YDDgAoqcQGcY2xAl9oG69fE+izZYM4AKC0vtBFOMDnrJOd3QX6TPlwAwBKK7GCfmqswFfYNE6gC3QAgE90rmGAIG+STeME+szYIA4AKKkvcM6Vi27gFprkeXSBPjP++gwAlHTj+gUIdDYcT4xBoAt0AIAyt7i3xgrcwbnuEehz4MMNACitxAZxHtED7irf6u7RGIFeNX9FAgBK2o7HoTVGC3xH+zwzBoFeM399BgBK2hQ6r0UG4HvkZ9FbYxDotfLhBgCUdFXgnC6ugR/hVneBLtABgKPUu34BKtMku7oL9Aq1vvQAwAwD/cRYgR+Un0X3xz6BXhXfkABAaZ1rGKBSr4xAoNfEBnEAQEmlNohrjRY4gPzHPre6C/SqviEBAErpXb8Alcu3utswTqALdABg8a4LnLMxVuCAVsm70QW6OAcAjkDnGgaYgSd+twh0gQ4ALF1f4JynxgoUcG4EAj2SDeIAgDkGukUGoIQ22YBSoAfy4QYAlNQVOOcq2cwJKMcqukAP0/qyAwAFlXjFmgUGoKT8O2ZtDAI94hsPAKCkmwLnbI0VKMyO7gJdoAMAi1NiBd0eOkBpTbKKLtAn5sMNACitK3ThDFCaVXSBPikr6ABASb1rGGDGmmQVXaBPqPUlBwBmFuiuX4ApWUUX6JPwl2cAoLQr1zDAzDXDcWYMAl2gAwBzV2KDuBNjBSb2qxEI9NJsEAcAlNYXOKdFBmBqrd89Ar0032AAQGklVtBbYwUCWEUX6AIdAJitzvULsCDr5BWPAr2Q/I218uUGAArqC13DAERGOgL94Pz1GQAo7cY1DLAwvxiBQBfoAMAcdQXOeWqsQKAmeeWaQPfhBgDMUIkN4iwyANGsok/opyP5//OP5Bl0AKCc7XD888DnXI3XMADR7qcy+2zwiWNYQW/EOQBQmNVzYMnc5i7QfbgBALNxVeCcrbEClXCbu0AX6ADAbPQFzvnAWIGKmkpXCfSDsEEcADDHQG+MFaiIVfQJHMMmcTaIAwDmeE31l7ECFenTbrM4Clr6CnojzgGAwkpsENcaK1BhW7nNXaD/EN9AAEBpvWsY4Ei4zV2g+3ADAKp2XeCcJ8YKVMjr1gT6D7H7KQBQWlfgnBYZgBo1fj8JdB9uAEDN+gLnbI0VqJTfTwL9u+TN4RpfYgBgZoFugQGomefQBboPNwCgSl2BczbGClTeWd6UJdDvrPXlBQAKK/GKNYsMQO1sFifQ78wGcQBAaTcFznlqrEDl/J4S6Hfmr88AQGlW0IFj1BpBGT8t9P+v/EzEH768AMDMrqVcwwBzcT+VeYvFUVvqCrq/PAMApZW4MHUNA8xFawQC3TcLALDkQHcNA8yF59AF+q3ZIA4AKO3KNQxwxFojEOi35fYwAKC0EhvENcYKzETjd5ZAv42VbxQAYAJ9gXNaZADmxO8sge6bBACowqFX0FsjBWbGc+gCXaADAOE61zAAfm8J9G+zuQoAUFpf4JwnxgrMTGsEAv1b/BUHACjtxjUMgN9dAt03CAAQrytwztZYAf0l0JfEBxsAMIVDbxDnAheYq8YIBLoPNwAgynY8XOAC2MldoH+FDeIAgNI2Bc5pkQGYK7+/BLpvDgAgzFWBc1qBAuZqNR4IdIEOAEyudw0D4HeYQP+61pcTAJhhoFt9AuauMQKB/il/tQEAptC5hgEQ6AL962wQBwCUVmKDuNZYAS3G0gLdX58BgNJ6F7YA/8djOgJdoAMAk7sucM7GWIGZa41AoItzAGBqnesYAAS6DzYAIF5/4PO1RgoshN9nAv1/PLsFAMwx0C0yALC4QPfhBgCU1hU454mxApqMpQV660sJABRW4hVrLmiBpbCTu0D3wQYATOamwDlbYwVAoAMA3M2hV9BdwwBLcmoEAj2zQRwAMIXuwOdrjBSApQW6vz4DAKX1rmEAEOjf1voyAgAzDHS3gwJL4o+OAt03AQAwiSvXMQBfZRd3ge6DDQCYxKE3iFu5mAVgaYFugzgAYAr9gc9nkQGAxQW6DzcAYAqHXkFvjRQAgQ4AcDddgXO6CxBYosYIjjfQ8xffs1sAQGm9i1gAv9sE+tdZPQcApnDjOgYAge6DDQCI1x34fK2RArC0QD/15QMAJnDoDeIsMgCwuED34QYAlLYdj0M6MVYAlhToTbJBHABQ3qbAOS0yALCoQPfBBgBM4arAOVtjBUCgAwDcTe8aBgCB/nU2iAMA5hjojZECsLRA99dnAGAKnWsYgFvbGsHxBXqTbBAHAJRXYoM4dwECfm+yqED3l2cAYAq96xgABLoPNgAg3vWBz7dK7gIEYGGB/sCXDQCYQHfg81lkAGBxge7DDQCYQn/g87VGCiyY58+PMNDzbWGNLxsAMMNAdxcgsGR2cD/CQLd6DgBMoStwzsZYAVhSoLe+ZADABErcqmmhAYCvujfDD8sXvmwckWdGAH+7GI4bY2BC3YHP1xopAN/ykxFA1f4yAvjbz6nMLccwlSfDcW4MwIJ14+c1P+AfRgAAUNyJEQAg0AEA4nn+HACBDgBQgdYIABDoAACxrJ4Dx2BjBAIdAKB2jREAR+BPIxDoAAC1s4IOgEAHAKjAqREAINABAOJZQQdAoAMABFuNB8DS9UYg0AEAamb1HBDoCHQAgAq0RgCAQAcAiPfACAAQ6AAA8RojAI5EZwQCHQCgZp5BB0CgAwAEa40AAIEOABDP6jlwLDojEOgAADU7MQIABDoAQLzWCIAjsTECgQ4AUHOcu8UdOBZ/GoFABwCoNc7fGANwRHojOIx7RgDAkTlPVjYpZ+X7CxDoCHQAuJ0cT60xAIBAr41b3AEAABDoAh0AAIAZs4O7QAcAAKACWyMQ6AAAAMS7MgKBDgAAQDwr6AIdAACACngGXaADAAAg0AU6AAAA9Mkt7gIdAACAKgIdgQ4AAEAwO7gLdAAAACrg+XOBDgAAgEAX6AAAAJA3h+uNQaADAAAQqzMCgQ4AAEC8ayMQ6AAAAMTrjECgAwAAINAFOgAAAOLcCAQ6AAAA8a6MQKADAAAQrzMCgQ4AAIBAF+gAAAAcvUsjEOgAAADE8/y5QAcAAKACVtAFOgAAAMH68UCgAwAAEMjquUAHAACgAq+NQKADAAAQqx+OjTEIdAAAAGK5vV2gAwAAUAG3twt0AAAAgvXJ7e0CHQAAgHBubxfoAAAAVOA3IxDoAAAAxMq3tvfGINABAACIZfVcoAMAABBsmzx/LtABAAAIdzlGOgIdAACAQG5vF+gAAAAE65J3nwt0AAAAwr02AoEOAABArH44LoxBoAMAABDLs+cCHQAAgGB51/YLYxDoAAAAxPotebWaQAcAACBUDvOXxiDQAQAAiGX1XKADAAAQzOq5QAcAAKACVs8FOgAAAMGsngt0AAAAKvA0WT0X6AAAAITaJO89F+gAAACEe2oEAh0AAIBYl8PRGYNABwAAIE5+5tzquUAHAAAgWH6tWm8MAh0AAIA4eWO458Yg0AEAAIj12AgEOgAAALFepN0KOgIdAACAIG5tF+gAAABUwK3tAh0AAIBg+ZVqbm0X6AAAAAS6HI6XxiDQAQAAiNMnt7YLdAAAAMI9Go6tMQh0AAAA4uSVc8+dC3QAAAACXYwHAh0AAIAgedXcc+cCHQAAgOA4/9kYBDoAAABx8mZwj5NN4QQ6AAAAoXGeV85tCifQAQAACGTHdoEOAABABXF+aQwCHQAAgNg4vzAGgQ4AAIA4R6ADAACIcwQ6AAAA4pwDumcEAAAAs+BVagtnBR0AAECcI9ABAAD4hhzl98W5QAcAACBOfr95XjnfGoVABwAAIMaL4Xgkzo+HTeIAAADqkoM879R+aRQCHQAAgBj5OfO8at4bxfFxizsAAEAdXg7Hv8T58bKCDgAAECsHeb6lvTOK42YFHQAAIM5+1VycYwUdAAAgQJ+smvMJK+gAAADTyTu059en3RfnfMoKOgAAwDQuxjjvjQKBDgAAML1uDPPOKBDoAAAAwhyBDgAAIMxBoAMAAJSXN3+7TJ4x5wfYxR0AAODHdeIcgQ4AABDvbDj+MxxvhqM1DgQ6AABAfKi/HQ+hjkAHAAAI1gp1BDoAAIBQR6ADAAAg1BHoAAAA8wj1vJlcYxwIdAAAgFj7Xd/Ph2NlHAh0AACAWE/GUH9iFAh0AACAWHkFPa+kv0ueTxfoAAAAhHuYds+nu+1doAMAAFCB/W3vZ0Yh0AEAAIiVV9DfjIfVdIEOAABAsP1u71bTBToAAADB9qvpr5LVdIEOAABAuHXa7fT+0CgEOgAAALGaMdK9N12gAwAAUIH8KjYbyAl0AAAAKpA3jnPLu0AHAACgAs1wvE2759MR6AAAAATKt7nnHd7PjUKgAwAAEC9vHOe5dIEOAABABfJz6W9FukAHAAAgXt40zuZxAh0AAIAKNGm3ki7SBToAAADBViJdoAMAAFBXpK+NQqADAAAQH+mvRLpABwAAoA4iXaADAAAg0hHoAAAAfOg82ThOoAMAABDO7u4CHQAAAJGOQAcAAODTSH8z/otABwAAIFCTdivpIl2gAwAAECzf5n5uDAIdAACAeOvheG4MAh0AAIB4z4bjzBgEOgAAAPFeJTu7C3QAAADCrcZIt2mcQAcAACCYTeMEOgAAAJVYjwcCHQAAgGB5Fd3z6AIdAACAYPvn0RHoAAAABMsr6M+NQaADAAAQ71lyq7tABwAAoApudRfoAAAAVMCt7gIdAACASuRb3RtjEOgAAADEc6u7QAcAAKAC7XCcGYNABwAAIN552r0jHYEOAABAoGY4nhiDQAcAACDer8mGcQIdAACAcPkW92fGINABAACIt05W0QU6AAAAVbCKLtABAACowDrtXr2GQAcAACCYVXSBDgAAQAXa5Fl0gQ4AAEAVrKILdAAAACqwTlbRBToAAABVsIou0AEAAKjA2XCsjEGgAwAAECvH+doYBDoAAADxfjUCgQ4AAEC8Ju1udUegAwAAEOwXIxDoAAAAxMsr6I0xCHQAAADqiHQEOgAAAMFsFifQAQAAqEAzHA+NQaADAAAQz2ZxAh0AAIAKrI1AoAMAABBvlWwWJ9ABAACowr+NQKADAAAQrzWC27tnBAAAxfXjwfw04wF8/89Q3s19YxQCHQCgBq+H47kxzFZ+jrYdjtO0e55WsMPd/CLQb8ct7gAA8HXb4bgcjqfDcX88ngoOuLXWCAQ6AACU0A/Hy+H41xjrL8eIBz4v3+LeGINABwCA0rGeV9P/ORyPk1V1+JLWCAQ6AABM5SLtVtV/Ho7OOOAjp0Yg0AEAYGrdGOn56I0D/nZmBAIdAAAiQ32/oZxn1Dl2+W0ID41BoAMAQKT9hnKdUXDkWiMQ6AAAEK1Pu1veraZzzB4YgUAHAIBavBxD3W7vHKPWCAQ6AADUZJPs9M5xapL3oQt0AACozHaM9Auj4MjYKE6gAwBAlR6LdAQ6Ah0AAEQ6TO3UCAQ6AACIdIhnBV2gAwCASIcKrJKN4gQ6AADMQH5PulewsXRW0QU6AABUL+/u/mj8FwS6QAcAAAL1aXe7OyzVAyMQ6AAAMBeXw/HSGFioxggEOgAAzMmLtFtNh6Vxi7tABwCAWcnPoT81BhaqMQKBDgAAc5Jvde+MAYEu0AEAgHg2jGOJ3OYu0AEAYHb64bgwBhZmZQQCHQAA5uiFEbAwXrUm0AEAYJb6ZBWdZbGCLtABAGC2fjMCFsQz6AIdAABmazMesARW0AU6AADMmlV0lqQxAoEOAABzdWkECHSBDgAAxNuKdBDoAABAHX43AhbCRnECHQAAZs0KOkthoziBDgAAs5Zvc++MAQQ6AAAQ78oIWIATIxDoAAAwd50RsACNEQh0AAAQ6IBABwAADmJjBCDQAQCAeL0RMHONEQh0AABYgmsjQKALdAAAIF5vBCDQAQAAgQ4IdAAAABDoAABAHeziDgIdAACowNYIQKADAADAITw0AoEOAABAvJURCHQAAAAQ6AAAAIBABwAAAIEOAAAACHQAAAAQ6AAAAIBABwCAJfH+aBDoAABABbw/GgQ6AAAAINABAICsNQIQ6AAAAIBABwAABqdGAAIdAACI1xgBC9AagUAHAIA5Wwl0EOgAAEA870AHgQ4AAFSgNQIQ6AAAQDwbxIFABwAAKtAaAQh0AAAg1pkRgEAHAADi/dsIQKADAADxrKCDQAcAACqI85UxgEAHAABiub0dBDoAABCsGY61MYBABwAAYolzEOgAAECw/Nz5r8YAAh0AAIj1JNkcDgQ6AAAQyuo5CHQAAKACz5LVcxDoAABAqIdpd3s7LFVvBAIdAADm4JURINAFOgAAEOt52q2gAwIdAAAI0qbds+eAQAcAAILkDeHeGAMIdAAAIDbO3ya7tnM8NkYg0AEAoEbnyXPnHJetEQh0AACoTd6xfW0MINABAABxDlPqjUCgAwCAOAeBLtABAIC/7XdrF+ccK8+ff+KeEQAAwOSaMc5tCMcxuzaCj1lBBwCAaZ0NxztxDgh0AACIkW9pz69Re5O85xyyzgg+5hZ3AAAor027zeAaowC+xAo6AACUk4M8r5i/Fefwfzoj+JgVdAAAOLx8C/uT4fg1uZ0dPscO7gIdAACEOVRgYwQCHQAASmiG41na7dAuzOHbeiMQ6AAAcCirMcjzarlXpsHd3BiBQAcAgB/RjFF+Ov4LfB+3uAt0AIAQJ2n3mi3mKa+OPxi/ho1xwEH0RiDQAQAirMcDgB0r6J/hPegAAACIc4EOAACAQEegAwAAMDU7uAt0AAAAKtAZgUAHAAAgnlvcBToAAADB+uHYGoNABwAAIJbVc4EOAABABa6MQKADAAAQzwq6QAcAAKACnREIdAAAAMS5QAcAAODoub1doAMAAFABG8QJdAAAACrQGYFABwAAIFa+vX1rDAIdAACAWJ0RCHQAAADi/W4EAh0AAIB4nREIdAAAAGJdGoFABwAAIJ7Xqwl0AAAAKmAFXaADAAAQLL9erTcGgQ4AAECszggEOgAAAPFeG4FABwAAIFafdre4I9ABAAAIZHM4gQ4AAEAF3N4u0AEAAAjWJ7e3C3QAAADCub1doAMAAFABt7cLdAAAAIJtktvbBToAAADhrJ4LdAAAACpwYQQCHQAAgPg43xqDQAcAACCW29sFOgAAAMH64eiMQaADAAAQ6zcjEOgAAADEys+dXxiDQAcAACDWZbI5nEAHAAAg3AsjEOgAAADE6tJugzgEOgAAAIGsngt0AAAAgnXJq9UEOgAAAOFeG4FABwAAIFafvFpNoAMAABDOs+cCHQAAgGB9snou0AEAAAhn9VygAwAAEKxPVs8FOgAAAOEeG4FABwAAIFaXvPdcoAMAABDOs+cCHQAAgGAXyeq5QAcAACDUNlk9F+gAAACE+y3tdm9HoAMAABAkh/lLYxDoAAAAxHqadre4I9ABAAAI0g3HpTEIdAAAAOLkVfPHxiDQAQAAiJV3be+NQaADAAAQZ5NsDCfQAQAACOfWdoEOAABAsHxr+8YYBDoAAABxcpg/NwaBDgAAQJy8a/sjYxDoAAAAxLJru0AHAAAg2GWya7tABwAAIFSf7Nou0AEAAAiXnzvfGoNABwAAIM7T5JVqAh0AAIBQnjsX6AAAAATLq+aeOxfoAAAABNqOce65c4EOAABAoBznnjsX6AAAAATKm8JdGoNABwAAIM5FsimcQAcAACBUl2wKJ9ABAAAIlZ83f2QMAh0AAIA4/XD8nOzYLtABAAAIk6P8kTgX6AAAAMTGeV459zo1gQ4AAIA4R6ADAACIcwQ6AAAAQZ6Kc4EOAABArPye8wtjmK97RgAAADBr+93aO6MQ6AAAAMTFuWfOF8It7gAAAOIcgQ4AAIA4R6ADAADMT47yf4nz5fEMOgAAwLziPK+cb41ieaygAwAAzMOFOBfoAAAAxHqZdu85F+cL5hZ3AACAuuUwvzAGgQ4AAEAMO7UfGbe4AwAA1MdO7QIdAACAYBdpt3LeG8VxcYs7AABAPTxvLtABAAAI1A/Ho+SW9qPmFncAAIBYl8nz5gh0AACAMHmX9nxL+6Pk/eYkt7gDAABE2Ixh3hsFe1bQAQAApvUi7W5pF+d8xAo6AADANPKq+ePkWXO+wAo6AABAeftVc3HOF1lBBwAAKMeqObdmBR0AAODw8q7sVs25EyvoAAAAh5Xfa/402QQOgQ4AABCiH8P80igQ6AAAANPLt7P/Nhwvx/8bBDoAAMDELtLuWfPeKBDoAAAA0+vGMO+MAoEOAAAwvT55zpxCvGYNAADgdmGe32d+X5xTihV0AACAL9u/z/ylUSDQAQAAYsLczuwIdAAAgCB92q2YXwpzBDoAAEBcmF8YBQIdAABget1wvBbmCHQAAIAYF2OYd0aBQAcAAJjWfuO3HOe9cSDQAQAAprX5IMxBoAMAAEwor5ZfjmG+MQ4EOgAAwLS6tHu23GvSEOgAAAAT69P7ndh740CgAwAATMct7Ah0AACA4Cj/ffwXBDoAAIAoB4EOAAAsWz/G+JUoR6ADAABMKz9Hnjd665JnyhHoAAAAk+nHGP99/Ncr0RDoRgAAAExgO4b4VbJKDgIdAAAQ5CDQAQCAJduMx9UH/zcg0AEAgIL6McCv0/vVcc+Qg0AHAAAK2oxBLsZBoAMAABOFeA7vqzHI+zHIAYEOAAAc2D68c4z/md6/3szz4iDQAQCAA8d3djX+u18V//B/AwQ68B06I4C/HfJZR6tEwNzsV7s/F+JWvwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgv+zBIQEAAACAoP+vXWEDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYJcAABy+vdZJeV7AAAAAASUVORK5CYII=" alt="TB Logo"></a>
+  <div class="footer-copy">© 2024 Théo Barty · Tous droits réservés</div>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/theo.barty/" target="_blank" class="social-link">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" onclick="closeVideoForce()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  </div>
+</div>
+
+<script>
+  // Reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Multi-select filters
+  const activeFilters = new Set();
+
+  function applyFilters() {
+    const reset = document.getElementById('resetFilters');
+    reset.classList.toggle('visible', activeFilters.size > 0);
+    document.querySelectorAll('.video-card').forEach(card => {
+      if (!card.dataset.tags) return; // placeholder — toujours visible
+      if (activeFilters.size === 0) {
+        card.classList.remove('hidden');
+      } else {
+        const tags = card.dataset.tags.split(',');
+        const match = [...activeFilters].every(f => tags.includes(f));
+        card.classList.toggle('hidden', !match);
+      }
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        activeFilters.delete(filter);
+      } else {
+        btn.classList.add('active');
+        activeFilters.add(filter);
+      }
+      applyFilters();
+    });
+  });
+
+  function resetFilters() {
+    activeFilters.clear();
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    applyFilters();
+  }
+
+  // Modal
+  function openVideo(id) {
+    document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+    document.getElementById('videoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVideo(e) { if (e.target === document.getElementById('videoModal')) closeVideoForce(); }
+  function closeVideoForce() {
+    document.getElementById('videoModal').classList.remove('open');
+    document.getElementById('videoModalIframe').src = '';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoForce(); });
+
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
