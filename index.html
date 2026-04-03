@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr" class="js">
 <head>
 <meta charset="UTF-8">
@@ -1388,7 +1388,7 @@
     gap: 1.25rem;
     align-items: start;
   }
-  .testi-col { display: contents; }
+  .testi-col { display: flex; flex-direction: column; gap: 1.25rem; }
 
   .testi-card {
     background: var(--dark2);
@@ -1926,6 +1926,7 @@
   </div>
 
   <div class="testi-grid">
+    <div class="testi-col">
 
     <div class="testi-card reveal">
       <p class="testi-quote">« J'ai commencé à travailler avec Théo il y a quelques mois maintenant, et c'est clairement le monteur qui a le mieux compris ma patte jusqu'ici. Il ne maîtrise pas seulement le montage sur le plan technique, il comprend aussi en profondeur le message qu'on cherche à transmettre derrière chaque choix, chaque rythme, chaque intention.<br><br>Ce que j'apprécie particulièrement chez lui, c'est sa compréhension du storytelling et des lignes directrices à suivre pour construire une vidéo qui a du sens. Il ne monte pas pour en mettre plein la vue, comme beaucoup peuvent le faire. Il monte pour impacter, pour faire ressentir, pour transmettre des émotions qui restent dans la tête des gens.<br><br>Et pour moi, c'est exactement ça, le vrai but de la création vidéo. »</p>
@@ -1937,6 +1938,9 @@
         </div>
       </div>
     </div>
+    </div>
+
+    <div class="testi-col">
 
     <div class="testi-card reveal reveal-delay-1">
       <p class="testi-quote">« Théo a été fort pour rattraper certaines galères que j'ai eu dans mes tournages, une fois le montage terminé.. j'ai été vraiment surpris, et ça c'est fort ! »</p>
@@ -1945,17 +1949,6 @@
         <div>
           <div class="testi-name">ImTarzan</div>
           <div class="testi-role">Créateur de contenu</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card reveal reveal-delay-2">
-            <p class="testi-quote">« Un troisième témoignage. Rapidité, qualité, professionnalisme, tout ce qu'on attend d'une collaboration réussie. »</p>
-      <div class="testi-author">
-        <div class="testi-avatar">EF</div>
-        <div>
-          <div class="testi-name">Prénom Nom</div>
-          <div class="testi-role">Fonction chez Client C</div>
         </div>
       </div>
     </div>
@@ -1969,6 +1962,7 @@
           <div class="testi-role">Fondateur de Seqooia</div>
         </div>
       </div>
+    </div>
     </div>
 
   </div>
